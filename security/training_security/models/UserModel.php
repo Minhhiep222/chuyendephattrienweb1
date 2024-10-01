@@ -14,7 +14,6 @@ class UserModel extends BaseModel {
     public function findUser($keyword) {
         $sql = 'SELECT * FROM users WHERE user_name LIKE %'.$keyword.'%'. ' OR user_email LIKE %'.$keyword.'%';
         $user = $this->select($sql);
-
         return $user;
     }
 
@@ -37,10 +36,50 @@ class UserModel extends BaseModel {
      * @param $id
      * @return mixed
      */
+
+     function decodeId($index) {
+        $number = 0;
+        $arrayNumber = [];
+        $array = explode('-', $index);
+        $decodeTable = [
+            'Z99X' => 0,
+            'A12B' => 1,
+            '&BUYG' => 2,
+            'PQR4' => 3,
+            '%$#@!' => 4,
+            '3GH6D' => 5,
+            'N7OP8' => 6,
+            '^&*E' => 7,
+            'KLM9' => 8,
+            ')(*YH' => 9,
+            ];
+        for ($i = 0; $i < count($array); $i++) {
+            if (isset($decodeTable[$array[$i]])) { 
+                $arrayNumber[$i] = $decodeTable[$array[$i]];
+            } else {
+                $arrayNumber[$i] = null;
+            }
+        }
+        $index = 10;
+        for ($i = 0; $i < count($arrayNumber); $i++) {
+            if(isset($arrayNumber[$i])) {
+                if($i !== 0){
+                    $number *= $index;
+                    $number += $arrayNumber[$i];
+                    $index*=$index;
+                }else{
+                    $number += $arrayNumber[$i];
+                }
+            }
+        }
+    
+        return $number;
+    }
+    
+
     public function deleteUserById($id) {
         $sql = 'DELETE FROM users WHERE id = '.$id;
         return $this->delete($sql);
-
     }
 
     /**
