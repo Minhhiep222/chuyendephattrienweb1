@@ -1,4 +1,4 @@
 <?php
-    interface f{
-        
+    interface I{
+        public function f();
     }

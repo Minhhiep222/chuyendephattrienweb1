@@ -5,7 +5,6 @@ include_once('A.php');
 include_once('B.php');
 include_once('C.php');
 include_once('I.php');
-// require "B.php";
 
 
 class Demo {
@@ -167,4 +166,4 @@ class Demo {
 }
 
 $demo = new Demo();
-$demo->typeAReturnA();
+$demo->typeIReturnNull();
